@@ -1,4 +1,4 @@
-/**
+/*
  * LightningChartJS example that showcases creation and styling of Area Series in a layered setting.
  */
 // Import LightningChartJS
