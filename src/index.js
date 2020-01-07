@@ -375,7 +375,7 @@ const axisX = xyChart.getDefaultAxisX()
     // Disable default ticks.
     .setTickStyle(emptyTick)
 
-// Create Custome Axis
+// Create Custom Axis
 const margin = 2;
 let customAxisX = (data, index) => {
     axisX.addCustomTick()
