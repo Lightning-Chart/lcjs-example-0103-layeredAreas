@@ -10,7 +10,10 @@ const {
     ColorPalettes,
     SolidFill,
     emptyLine,
-    emptyTick
+    emptyFill,
+    AxisTickStrategies,
+    ColorRGBA,
+    Themes
 } = lcjs
 
 // ----- Cache styles -----
@@ -19,7 +22,9 @@ const solidFills = [2, 1, 0].map(palette).map((color) => new SolidFill({ color }
 const opaqueFills = solidFills.map(fill => fill.setA(150))
 
 // Create a XY Chart.
-const xyChart = lightningChart().ChartXY()
+const xyChart = lightningChart().ChartXY({
+    // theme: Themes.dark 
+})
     .setTitle('Product version distribution')
     .setMouseInteractions(true)
     .setPadding({ right: 25 })
@@ -373,7 +378,7 @@ const axisX = xyChart.getDefaultAxisX()
     .setMouseInteractions(false)
     .setScrollStrategy(undefined)
     // Disable default ticks.
-    .setTickStyle(emptyTick)
+    .setTickStrategy(AxisTickStrategies.Empty)
 
 // Create Custom Axis
 const margin = 2;
@@ -386,22 +391,27 @@ let customAxisX = (data, index) => {
             .setPadding(margin)
             .setBackground((background) => background
                 .setStrokeStyle(emptyLine)
+                .setFillStyle(emptyFill)
             )
+            .setTextFillStyle(new SolidFill({ color: ColorRGBA(150, 150, 150) }))
         )
+
 }
 
 // Generate Chart
-const generateChart = (data, area) => {
-
-    data.map((p, index) => ({ x: index, y: p.y }))
+const generateChart = (data, area, createTicks) => {
+    data
+        .map((p, index) => ({ x: index, y: p.y }))
         .forEach((point, index) => {
             area.add(point)
-            customAxisX(data, index)
+            if(createTicks){
+                customAxisX(data, index)
+            }
         })
 }
 
 // generating different layered for charts
-generateChart(version1, V1Area)
+generateChart(version1, V1Area, true)
 generateChart(version2, V2Area)
 generateChart(version3, V3Area)
 generateChart(version4, V4Area)
