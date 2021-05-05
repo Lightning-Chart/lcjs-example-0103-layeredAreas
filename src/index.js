@@ -13,6 +13,7 @@ const {
     emptyFill,
     AxisTickStrategies,
     ColorRGBA,
+    UIElementBuilders,
     Themes
 } = lcjs
 
@@ -39,7 +40,7 @@ const createAreaSeries = (versionNumber, index) => {
         .setName(`Version ${versionNumber}`)
         .setFillStyle(opaqueFills[index])
         .setStrokeStyle((stroke) => stroke.setFillStyle(solidFills[index]))
-        .setResultTableFormatter((builder, series, xValue, yValue) => {
+        .setCursorResultTableFormatter((builder, series, xValue, yValue) => {
             return builder
                 .addRow(series.getName())
                 .addRow('Date: ', reportTableXlable[parseInt(xValue)])
@@ -381,18 +382,12 @@ const axisX = xyChart.getDefaultAxisX()
     .setTickStrategy(AxisTickStrategies.Empty)
 
 // Create Custom Axis
-const margin = 2;
 let customAxisX = (data, index) => {
-    axisX.addCustomTick()
+    axisX.addCustomTick(UIElementBuilders.AxisTick)
         .setValue(index)
         .setGridStrokeLength(0)
         .setTextFormatter((_) => data[index].x)
         .setMarker((marker) => marker
-            .setPadding(margin)
-            .setBackground((background) => background
-                .setStrokeStyle(emptyLine)
-                .setFillStyle(emptyFill)
-            )
             .setTextFillStyle(new SolidFill({ color: ColorRGBA(150, 150, 150) }))
         )
 
