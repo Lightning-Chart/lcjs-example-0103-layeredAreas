@@ -1,6 +1,6 @@
-# Layered Areas
+# Layered Areas JavaScript Chart
 
-![Layered Areas](layeredAreas.png)
+![Layered Areas JavaScript Chart](layeredAreas.png)
 
 This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
 
