@@ -7,24 +7,14 @@ const lcjs = require('@arction/lcjs')
 // Extract required parts from LightningChartJS.
 const {
     lightningChart,
-    ColorPalettes,
-    SolidFill,
-    emptyLine,
-    emptyFill,
     AxisTickStrategies,
-    ColorRGBA,
     UIElementBuilders,
     Themes
 } = lcjs
 
-// ----- Cache styles -----
-const palette = ColorPalettes.arctionWarm(2)
-const solidFills = [2, 1, 0].map(palette).map((color) => new SolidFill({ color }))
-const opaqueFills = solidFills.map(fill => fill.setA(150))
-
 // Create a XY Chart.
 const xyChart = lightningChart().ChartXY({
-    // theme: Themes.dark 
+    // theme: Themes.darkGold 
 })
     .setTitle('Product version distribution')
     .setMouseInteractions(true)
@@ -38,8 +28,6 @@ const reportTableXlable = ['Jan-17', 'Feb-17', 'Mar-17', 'Apr-17', 'May-17', 'Ju
 const createAreaSeries = (versionNumber, index) => {
     return xyChart.addAreaSeries()
         .setName(`Version ${versionNumber}`)
-        .setFillStyle(opaqueFills[index])
-        .setStrokeStyle((stroke) => stroke.setFillStyle(solidFills[index]))
         .setCursorResultTableFormatter((builder, series, xValue, yValue) => {
             return builder
                 .addRow(series.getName())
@@ -387,9 +375,6 @@ let customAxisX = (data, index) => {
         .setValue(index)
         .setGridStrokeLength(0)
         .setTextFormatter((_) => data[index].x)
-        .setMarker((marker) => marker
-            .setTextFillStyle(new SolidFill({ color: ColorRGBA(150, 150, 150) }))
-        )
 
 }
 
