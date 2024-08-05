@@ -2,7 +2,7 @@
  * LightningChartJS example that showcases creation and styling of Area Series in a layered setting.
  */
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Extract required parts from LightningChartJS.
 const { lightningChart, AxisTickStrategies, UIElementBuilders, Themes } = lcjs
@@ -18,33 +18,9 @@ const xyChart = lightningChart({
     .setMouseInteractions(true)
     .setPadding({ right: 25 })
 
-// Custom tick labels for X Axis.
-const reportTableXlable = [
-    'Jan-17',
-    'Feb-17',
-    'Mar-17',
-    'Apr-17',
-    'May-17',
-    'Jun-17',
-    'Jul-17',
-    'Aug-17',
-    'Sep-17',
-    'Oct-17',
-    'Nov-17',
-    'Dec-17',
-]
-
 // Creating AreaSeries
 const createAreaSeries = (versionNumber, index) => {
-    return xyChart
-        .addAreaSeries()
-        .setName(`Version ${versionNumber}`)
-        .setCursorResultTableFormatter((builder, series, xValue, yValue) => {
-            return builder
-                .addRow(series.getName())
-                .addRow('Date: ', reportTableXlable[parseInt(xValue)])
-                .addRow('Distribution: ' + yValue.toFixed(2))
-        })
+    return xyChart.addPointLineAreaSeries().setName(`Version ${versionNumber}`)
 }
 
 // Create the area series
@@ -713,9 +689,6 @@ generateChart(version9, V9Area)
 generateChart(version10, V10Area)
 generateChart(version11, V11Area)
 generateChart(version12, V12Area)
-
-// Enable AutoCursor auto-fill.
-xyChart.setAutoCursor((cursor) => cursor.setResultTableAutoTextStyle(false).setTickMarkerXVisible(false))
 
 xyChart
     .getDefaultAxisY()
