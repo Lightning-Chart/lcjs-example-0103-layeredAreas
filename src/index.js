@@ -15,8 +15,7 @@ const xyChart = lightningChart({
         theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
     .setTitle('Product version distribution')
-    .setMouseInteractions(true)
-    .setPadding({ right: 25 })
+    .setUserInteractions(undefined)
 
 // Creating AreaSeries
 const createAreaSeries = (versionNumber, index) => {
@@ -652,7 +651,6 @@ const version12 = [
 
 const axisX = xyChart
     .getDefaultAxisX()
-    .setMouseInteractions(false)
     .setScrollStrategy(undefined)
     // Disable default ticks.
     .setTickStrategy(AxisTickStrategies.Empty)
@@ -690,9 +688,4 @@ generateChart(version10, V10Area)
 generateChart(version11, V11Area)
 generateChart(version12, V12Area)
 
-xyChart
-    .getDefaultAxisY()
-    .setTitle('Percentage')
-    .setScrollStrategy(undefined)
-    .setInterval({ start: 0, end: 50, stopAxisAfter: false })
-    .setMouseInteractions(false)
+xyChart.getDefaultAxisY().setTitle('Percentage').setScrollStrategy(undefined).setInterval({ start: 0, end: 50, stopAxisAfter: false })
